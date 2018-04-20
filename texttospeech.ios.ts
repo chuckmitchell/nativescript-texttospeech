@@ -131,6 +131,10 @@ export class TNSTextToSpeech {
   }
 
   public pause(now) {
+    if (!this._speechSynthesizer) {
+      this._speechSynthesizer = AVSpeechSynthesizer.alloc().init();
+      this._speechSynthesizer.delegate = new MySpeechDelegate();
+    }
     this._speechSynthesizer.pauseSpeakingAtBoundary(
       now
         ? AVSpeechBoundary.AVSpeechBoundaryImmediate
@@ -139,6 +143,10 @@ export class TNSTextToSpeech {
   }
 
   public resume() {
+    if (!this._speechSynthesizer) {
+      this._speechSynthesizer = AVSpeechSynthesizer.alloc().init();
+      this._speechSynthesizer.delegate = new MySpeechDelegate();
+    }
     this._speechSynthesizer.continueSpeaking();
   }
 
